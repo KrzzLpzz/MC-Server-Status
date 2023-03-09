@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  <title>Server Status</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto+Mono'>
+  <link rel="stylesheet" href="./style.css">
+
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <div class="card">
+    <div class="icon"><img src="./block.png" id="favicon" alt="Server Icon"></div>
+    <div class="header">
+      <div class="image"> <img src="./bk.jpg" alt="background"></div>
+      <h2>
+        play.lospanasjeje.ml
+      </h2>
+    </div>
+    <div id="rest">Pinging Server...</div>
+
+    <!--  <a href="#" class="button">Link Button</a>-->
+    <center><button class="button" onclick="loadServer()">Agregar</button></center>
+    <br>
+    <!--  <input type="button" class="button" value="Input Button">-->
+  </div>
+
+  <!-- partial -->
+  <script src="clipboard.min.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <script src="./script.js"></script>
+
+  <script>
+    function loadServer() {
+      window.open("minecraft://openServersTab?addExternalServer=¡TegusCraft!|play.lospanasjeje.ml:10022", "_parent").close;
+    }
+  </script>
+
+</body>
+
+</html>
