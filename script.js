@@ -43,5 +43,10 @@ async function initServerData(serverIp, serverPort) {
       <b>IP del Servidor:</b> ${serverIp}<br>
       <b>Puerto:</b> ${serverPort}<br>
       <b>Jugadores Conectados:</b> ${jugadores}<br>
-      <b>MOTD`
-
+      <b>MOTD:</b> ${motd}
+    `;
+  }
+}
+
+// Puedes cambiar estos valores o pedirlos al usuario por un formulario
+initServerData("play.krzz.eu.org", "25566");
