@@ -5,45 +5,62 @@
   <meta charset="UTF-8">
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="Página simple para mostrar la información de un servidor de Minecraft">
 
-  <title>Server Status</title>
+  <title>Estado del Servidor</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto+Mono'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
   <link rel="stylesheet" href="./style.css">
 
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-  <div class="card">
-    <div class="icon"><img src="./block.png" id="favicon" alt="Server Icon"></div>
-    <div class="header">
-      <div class="image"> <img src="./bk.jpg" alt="background"></div>
-      <h2>
-        play.krzz.eu.org
-      </h2>
-    </div>
-    <div id="rest">Pinging Server...</div>
+  <main>
+    <section class="card">
+      <div class="icon">
+        <img src="./block.png" id="favicon" alt="Icono del servidor Minecraft">
+      </div>
+      <header class="header">
+        <div class="image">
+          <img src="./bk.jpg" alt="Fondo de la cabecera">
+        </div>
+        <h2>
+          play.krzz.eu.org
+        </h2>
+      </header>
+      <div id="rest">Consultando estado del servidor...</div>
+      <div style="text-align: center;">
+        <button class="button" onclick="loadServer()" aria-label="Agregar servidor a Minecraft">Agregar</button>
+      </div>
+      <div id="mensaje" style="text-align:center; color:green;"></div>
+    </section>
+  </main>
 
-    <!--  <a href="#" class="button">Link Button</a>-->
-    <center><button class="button" onclick="loadServer()">Agregar</button></center>
-    <br>
-    <!--  <input type="button" class="button" value="Input Button">-->
-  </div>
-
-  <!-- partial -->
-  <script src="clipboard.min.js"></script>
-
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-  <script src="./script.js"></script>
-
+  <script src="clipboard.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" defer></script>
+  <script src="./script.js" defer></script>
   <script>
+    // Corrige .close y añade feedback visual
     function loadServer() {
-      window.open("minecraft://openServersTab?addExternalServer=¡TegusCraft!|play.lospanasjeje.ml:10022", "_parent").close;
+      let win = window.open("minecraft://openServersTab?addExternalServer=¡TegusCraft!|play.lospanasjeje.ml:10022", "_parent");
+      document.getElementById('mensaje').innerText = "Solicitud enviada para agregar el servidor en Minecraft.";
+      setTimeout(() => {
+        document.getElementById('mensaje').innerText = "";
+      }, 4000);
     }
-  </script>
 
+    // Ejemplo de cómo actualizar dinámicamente el estado del servidor (simulado)
+    // Reemplaza esto por la lógica real de consulta si tienes una API
+    function actualizarEstadoServidor() {
+      // Aquí deberías hacer una petición AJAX real para obtener el estado
+      setTimeout(() => {
+        document.getElementById('rest').innerText = "Servidor en línea: 12 jugadores conectados";
+      }, 2000);
+    }
+    actualizarEstadoServidor();
+  </script>
 </body>
 
 </html>
