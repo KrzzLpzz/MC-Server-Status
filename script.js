@@ -11,7 +11,7 @@ function initServerData(serverIp, serverPort) {
     if (data.status == 'error') {
       console.log(data.error);
       const serverError = document.getElementById('rest');
-      serverError.innerHTML = "TegusCraft está Offline";
+      serverError.innerHTML = "El servidor está Offline";
       return false;
     }
 
@@ -24,4 +24,4 @@ function initServerData(serverIp, serverPort) {
 
 }
 
-initServerData("play.lospanasjeje.ml", "10022");
+initServerData("play.krzz.eu.org", "25566");
