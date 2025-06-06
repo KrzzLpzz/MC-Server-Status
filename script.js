@@ -1,27 +1,47 @@
-function initServerData(serverIp, serverPort) {
+async function initServerData(serverIp, serverPort) {
   const serverIpElement = document.getElementById('server-ip');
-  //serverIpElement.innerHTML = serverIp;
+  // Opcional: Mostrar la IP en la página si lo deseas
+  // serverIpElement.innerHTML = serverIp;
 
-  console.log('https://mcapi.us/server/status?ip=' + serverIp + '&port=' + serverPort);
-  fetch('https://mcapi.us/server/status?ip=' + serverIp + '&port=' + serverPort)
-    .then(response => response.json())
-    .then(data => handleServerStatus(data));
+  const serverStatusUrl = `https://mcapi.us/server/status?ip=${serverIp}&port=${serverPort}`;
+  console.log(serverStatusUrl);
 
-  function handleServerStatus(data) {
-    if (data.status == 'error') {
-      console.log(data.error);
-      const serverError = document.getElementById('rest');
-      serverError.innerHTML = "El servidor está Offline";
-      return false;
+  try {
+    const response = await fetch(serverStatusUrl);
+    if (!response.ok) {
+      throw new Error('No se pudo conectar con la API del servidor');
     }
-
-    const logo = document.getElementById("favicon");
-    logo.src = data.favicon;
-
-    const serverSuccess = document.getElementById('rest');
-    serverSuccess.innerHTML = '<b>IP del Servidor: </b>' + serverIp + '<br>' + '<b>Puerto: </b>' + serverPort + '<br>' + '<b>Jugadores Conectados: </b>' + data.players.now + '<br>' + '<b>MOTD: </b>' + data.motd + '<br><br>Agrega el servidor a Bedrock:'
+    const data = await response.json();
+    handleServerStatus(data);
+  } catch (error) {
+    const serverError = document.getElementById('rest');
+    serverError.innerHTML = "Error de conexión o de API";
+    console.error(error);
   }
 
-}
+  function handleServerStatus(data) {
+    const serverMessage = document.getElementById('rest');
+    if (data.status === 'error') {
+      console.log(data.error);
+      serverMessage.innerHTML = "El servidor está Offline";
+      return;
+    }
 
-initServerData("play.krzz.eu.org", "25566");
+    // Validar favicon
+    const logo = document.getElementById("favicon");
+    if (data.favicon) {
+      logo.src = data.favicon;
+    } else {
+      logo.src = ""; // O una imagen por defecto
+    }
+
+    // Validar datos antes de mostrar
+    const jugadores = data.players && data.players.now !== undefined ? data.players.now : 'Desconocido';
+    const motd = data.motd || 'Sin MOTD';
+
+    serverMessage.innerHTML = `
+      <b>IP del Servidor:</b> ${serverIp}<br>
+      <b>Puerto:</b> ${serverPort}<br>
+      <b>Jugadores Conectados:</b> ${jugadores}<br>
+      <b>MOTD`
+
